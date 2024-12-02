@@ -26,6 +26,10 @@ app.get('/pokemon/:pokemonId/', (req, res) => {
   res.send(pokedex[pokemonId - 1])
 });
 
+app.get('image/:preparedId', (req, res) => {
+  
+})
+
 app.get('/pokemon/query/type/', (req, res) => {
   let pokemonTypes = req.query.pokemonTypes
   console.log(pokemonTypes)
