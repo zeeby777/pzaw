@@ -6,6 +6,8 @@ const app = express();
 let pokedex = [];
 let pokeTypes = [];
 
+app.use(cors())
+
 fs.readFile('./resources/pokedex.json', function(err, data) { 
   if (err) throw err; 
 
@@ -26,6 +28,7 @@ app.get('/pokemon/:pokemonId/', (req, res) => {
 
 app.get('/pokemon/query/type/', (req, res) => {
   let pokemonTypes = req.query.pokemonTypes
+  console.log(pokemonTypes)
   let fetchedPokemon = [];
   // jesli 1 typ dany, zmieniamy na arraya 1 elementowego
   if(typeof(pokemonTypes) === 'string'){
@@ -43,8 +46,7 @@ app.get('/pokemon/query/type/', (req, res) => {
 
 app.get('/types/:lang', (req, res) => {
   const langSchema = ['english', 'chinese', 'japanese']
-  const lang = req.params.pokemonId
-  console.log(lang)
+  const lang = req.params.lang
   let langId = langSchema.indexOf(lang)
   let fetchedTypes = []
   pokeTypes.forEach(pokeType => {
