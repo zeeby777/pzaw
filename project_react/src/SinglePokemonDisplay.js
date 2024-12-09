@@ -1,6 +1,9 @@
-import { Image } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Card, CardText, CardTitle, CardImg, CardBody, CardSubtitle, ListGroup, ListGroupItem } from "react-bootstrap";
+import ky from "ky";
 
 function SinglePokemonDisplay({pokemon}){
+    const imgSrc = "http://localhost:8080/image/" + fillPokemonId(pokemon.id)
     console.log(pokemon)
     function getTypeList(types){
         let typesString = ""
@@ -22,17 +25,26 @@ function SinglePokemonDisplay({pokemon}){
         return idString
     }
 
+    
+
     return(
-        <div className="singlePokemonDisplay">
-            <p>Nazwa: {pokemon.name.english}</p>
-            <p>Typy: {getTypeList(pokemon.type)}</p>
-            <p>Staty: </p>
-            <ul>
-                {Object.entries(pokemon.base).map((stat, index) => (
-                    <li key={index}>{stat[0]}: {stat[1]}</li>
-                ))}
-            </ul>
-        </div>
+        <Card class="pokemonCard">
+            <CardImg src={imgSrc} variant="top"/>
+            <CardBody>
+                <CardTitle>{pokemon.name.english}</CardTitle>
+                <CardText>
+                    Typy: {getTypeList(pokemon.type)}
+                </CardText>
+                <CardSubtitle>
+                        <ListGroup>
+                        {Object.entries(pokemon.base).map((stat, index) => (
+                            <ListGroupItem key={index}>{stat[0]}: {stat[1]}</ListGroupItem>
+                        ))}
+                        </ListGroup>
+                </CardSubtitle>
+
+            </CardBody>
+        </Card>
     )
 }
 

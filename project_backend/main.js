@@ -26,8 +26,10 @@ app.get('/pokemon/:pokemonId/', (req, res) => {
   res.send(pokedex[pokemonId - 1])
 });
 
-app.get('image/:preparedId', (req, res) => {
-  
+app.get('/image/:preparedId', (req, res) => {
+  const path = "./resources/images/" + req.params.preparedId + ".png"
+  const img = fs.readFileSync(path, {encoding: 'base64'});
+  res.sendFile(path, {root: __dirname})
 })
 
 app.get('/pokemon/query/type/', (req, res) => {
